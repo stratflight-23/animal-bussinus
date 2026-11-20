@@ -209,10 +209,11 @@ script in `Assets/Editor/`. Builds can take a long time; run them in the backgro
 ## For Dad (Windows)
 **One-time setup**
 1. Install **GitHub Desktop**: https://desktop.github.com → run the installer → sign in with your GitHub account.
-   (The son must first invite you: on GitHub, repo `gorilla-company` > Settings > Collaborators > Add people.)
+   (The son must first invite you: on GitHub, repo `stratflight-23/animal-bussinus` > Settings > Collaborators > Add people.
+   Skip this if the repo is already under your own GitHub account.)
 2. Install **Git LFS**: https://git-lfs.com → download → run the installer. Then open "Command Prompt" and run `git lfs install` once.
    (GitHub Desktop also handles LFS on its own, but this makes sure it's on.)
-3. Clone: GitHub Desktop > File > Clone repository > pick `gorilla-company` > choose a folder (e.g. `Documents\GitHub\gorilla-company`) > Clone.
+3. Clone: GitHub Desktop > File > Clone repository > pick `animal-bussinus` > choose a folder (e.g. `Documents\GitHub\animal-bussinus`) > Clone.
    The first clone downloads ~250 MB of art/sound/video, so it can take a few minutes.
 4. Install the **exact same Unity version**: Unity Hub > Installs > Install Editor > Archive tab > find **6000.6.10f1**.
    Tick **Android Build Support** (with OpenJDK and Android SDK & NDK Tools) so you can build for Quest too.
