@@ -1,0 +1,51 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ced1a992219480438bc70472112b1ec, type: 3}
+  m_Name: Snowball
+  m_EditorClassIdentifier: Assembly-CSharp::WeaponData
+  weaponName: Snowball
+  category: Throwables
+  description: Brrr! Freezes whoever it hits.
+  price: 100
+  attackType: 2
+  damage: 8
+  cooldown: 0.5
+  range: 0
+  projectileSpeed: 20
+  knockback: 4
+  effect: 3
+  areaRadius: 0
+  singleUse: 1
+  affectsArea: 0
+  returnsAfterThrow: 0
+  spawnsBlock: 0
+  glows: 0
+  projectileGravity: 0
+  projectileShape: 0
+  projectileSize: 0.12
+  mass: 0.5
+  mainColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+  accentColor: {r: 0.62352943, g: 0.9098039, b: 1, a: 1}
+  shape:
+  - shape: 0
+    size: {x: 0.12, y: 0.12, z: 0.12}
+    offset: {x: 0, y: 0, z: 0.06}
+    rotation: {x: 0, y: 0, z: 0}
+    color: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+  - shape: 0
+    size: {x: 0.05, y: 0.05, z: 0.05}
+    offset: {x: 0.04, y: 0.04, z: 0.06}
+    rotation: {x: 0, y: 0, z: 0}
+    color: {r: 0.62352943, g: 0.9098039, b: 1, a: 1}
+  catalogIndex: 39
+  length: 0.12
+  tipOffset: {x: 0.0025000013, y: 0.0025000013, z: 0.12}

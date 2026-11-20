@@ -1,0 +1,56 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ced1a992219480438bc70472112b1ec, type: 3}
+  m_Name: Rock-on-a-Stick
+  m_EditorClassIdentifier: Assembly-CSharp::WeaponData
+  weaponName: Rock-on-a-Stick
+  category: Bonkers
+  description: The oldest weapon on the island.
+  price: 95
+  attackType: 0
+  damage: 13
+  cooldown: 0.4
+  range: 0.22
+  projectileSpeed: 20
+  knockback: 4.2
+  effect: 0
+  areaRadius: 0
+  singleUse: 0
+  affectsArea: 0
+  returnsAfterThrow: 0
+  spawnsBlock: 0
+  glows: 0
+  projectileGravity: 0
+  projectileShape: 0
+  projectileSize: 0.12
+  mass: 1.6
+  mainColor: {r: 0.54901963, g: 0.54901963, b: 0.54901963, a: 1}
+  accentColor: {r: 0.29803923, g: 0.6862745, b: 0.3137255, a: 1}
+  shape:
+  - shape: 2
+    size: {x: 0.04, y: 0.3, z: 0.04}
+    offset: {x: 0, y: 0, z: 0.14999999}
+    rotation: {x: 90, y: 0, z: 0}
+    color: {r: 0.54509807, g: 0.3529412, b: 0.16862746, a: 1}
+  - shape: 0
+    size: {x: 0.22, y: 0.17, z: 0.2}
+    offset: {x: 0, y: 0.02, z: 0.5}
+    rotation: {x: 10, y: 20, z: 0}
+    color: {r: 0.54901963, g: 0.54901963, b: 0.54901963, a: 1}
+  - shape: 2
+    size: {x: 0.06, y: 0.025, z: 0.06}
+    offset: {x: 0, y: 0, z: 0.4}
+    rotation: {x: 90, y: 0, z: 0}
+    color: {r: 0.29803923, g: 0.6862745, b: 0.3137255, a: 1}
+  catalogIndex: 6
+  length: 0.6440338
+  tipOffset: {x: 0, y: 0.019999996, z: 0.6440338}

@@ -1,0 +1,61 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ced1a992219480438bc70472112b1ec, type: 3}
+  m_Name: Storm Cloud Jar
+  m_EditorClassIdentifier: Assembly-CSharp::WeaponData
+  weaponName: Storm Cloud Jar
+  category: Elemental
+  description: Open the lid to zap everyone around you.
+  price: 105
+  attackType: 5
+  damage: 10
+  cooldown: 8
+  range: 4
+  projectileSpeed: 20
+  knockback: 0
+  effect: 4
+  areaRadius: 0
+  singleUse: 0
+  affectsArea: 1
+  returnsAfterThrow: 0
+  spawnsBlock: 0
+  glows: 0
+  projectileGravity: 0
+  projectileShape: 0
+  projectileSize: 0.12
+  mass: 0.6
+  mainColor: {r: 0.7490196, g: 0.9019608, b: 1, a: 1}
+  accentColor: {r: 0.54509807, g: 0.3529412, b: 0.16862746, a: 1}
+  shape:
+  - shape: 2
+    size: {x: 0.14, y: 0.11, z: 0.14}
+    offset: {x: 0, y: 0, z: 0.09}
+    rotation: {x: 90, y: 0, z: 0}
+    color: {r: 0.7490196, g: 0.9019608, b: 1, a: 1}
+  - shape: 2
+    size: {x: 0.15, y: 0.015, z: 0.15}
+    offset: {x: 0, y: 0, z: 0.21}
+    rotation: {x: 90, y: 0, z: 0}
+    color: {r: 0.54509807, g: 0.3529412, b: 0.16862746, a: 1}
+  - shape: 0
+    size: {x: 0.07, y: 0.07, z: 0.07}
+    offset: {x: 0.02, y: 0.02, z: 0.08}
+    rotation: {x: 0, y: 0, z: 0}
+    color: {r: 0.4392157, g: 0.47843137, b: 0.52156866, a: 1}
+  - shape: 0
+    size: {x: 0.06, y: 0.06, z: 0.06}
+    offset: {x: -0.02, y: 0, z: 0.12}
+    rotation: {x: 0, y: 0, z: 0}
+    color: {r: 0.4392157, g: 0.47843137, b: 0.52156866, a: 1}
+  catalogIndex: 66
+  length: 0.22500002
+  tipOffset: {x: 0.000000007450581, y: 0.000000014901161, z: 0.22500002}

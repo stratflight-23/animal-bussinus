@@ -1,0 +1,61 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ced1a992219480438bc70472112b1ec, type: 3}
+  m_Name: Fire Torch
+  m_EditorClassIdentifier: Assembly-CSharp::WeaponData
+  weaponName: Fire Torch
+  category: Elemental
+  description: Throws little fireballs.
+  price: 105
+  attackType: 3
+  damage: 8
+  cooldown: 0.6
+  range: 30
+  projectileSpeed: 14
+  knockback: 1.5
+  effect: 2
+  areaRadius: 0
+  singleUse: 0
+  affectsArea: 0
+  returnsAfterThrow: 0
+  spawnsBlock: 0
+  glows: 1
+  projectileGravity: 0
+  projectileShape: 0
+  projectileSize: 0.12
+  mass: 1
+  mainColor: {r: 1, g: 0.54901963, b: 0.101960786, a: 1}
+  accentColor: {r: 1, g: 0.88235295, b: 0.3019608, a: 1}
+  shape:
+  - shape: 2
+    size: {x: 0.05, y: 0.25, z: 0.05}
+    offset: {x: 0, y: 0, z: 0.099999994}
+    rotation: {x: 90, y: 0, z: 0}
+    color: {r: 0.54509807, g: 0.3529412, b: 0.16862746, a: 1}
+  - shape: 2
+    size: {x: 0.1, y: 0.049999997, z: 0.1}
+    offset: {x: 0, y: 0, z: 0.39999998}
+    rotation: {x: 90, y: 0, z: 0}
+    color: {r: 0.2901961, g: 0.30980393, b: 0.33333334, a: 1}
+  - shape: 0
+    size: {x: 0.12, y: 0.12, z: 0.2}
+    offset: {x: 0, y: 0, z: 0.52}
+    rotation: {x: 0, y: 0, z: 0}
+    color: {r: 1, g: 0.54901963, b: 0.101960786, a: 1}
+  - shape: 0
+    size: {x: 0.07, y: 0.07, z: 0.07}
+    offset: {x: 0, y: 0, z: 0.5}
+    rotation: {x: 0, y: 0, z: 0}
+    color: {r: 1, g: 0.88235295, b: 0.3019608, a: 1}
+  catalogIndex: 60
+  length: 0.62
+  tipOffset: {x: 0, y: 0, z: 0.62}

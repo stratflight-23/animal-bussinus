@@ -1,0 +1,56 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ced1a992219480438bc70472112b1ec, type: 3}
+  m_Name: Healing Mango
+  m_EditorClassIdentifier: Assembly-CSharp::WeaponData
+  weaponName: Healing Mango
+  category: Support
+  description: Eat it to get 40 HP back.
+  price: 200
+  attackType: 5
+  damage: 40
+  cooldown: 1
+  range: 0
+  projectileSpeed: 20
+  knockback: 0
+  effect: 6
+  areaRadius: 0
+  singleUse: 1
+  affectsArea: 0
+  returnsAfterThrow: 0
+  spawnsBlock: 0
+  glows: 0
+  projectileGravity: 0
+  projectileShape: 0
+  projectileSize: 0.12
+  mass: 0.6
+  mainColor: {r: 1, g: 0.54901963, b: 0.101960786, a: 1}
+  accentColor: {r: 0.29803923, g: 0.6862745, b: 0.3137255, a: 1}
+  shape:
+  - shape: 0
+    size: {x: 0.12, y: 0.15, z: 0.1}
+    offset: {x: 0, y: 0, z: 0.06}
+    rotation: {x: 0, y: 0, z: 0}
+    color: {r: 1, g: 0.54901963, b: 0.101960786, a: 1}
+  - shape: 3
+    size: {x: 0.06, y: 0.01, z: 0.03}
+    offset: {x: 0.02, y: 0.08, z: 0.06}
+    rotation: {x: 0, y: 0, z: -20}
+    color: {r: 0.29803923, g: 0.6862745, b: 0.3137255, a: 1}
+  - shape: 2
+    size: {x: 0.012, y: 0.015000001, z: 0.012}
+    offset: {x: 0, y: 0.085, z: 0.06}
+    rotation: {x: 0, y: 0, z: 0}
+    color: {r: 0.54509807, g: 0.3529412, b: 0.16862746, a: 1}
+  catalogIndex: 80
+  length: 0.11
+  tipOffset: {x: 0, y: 0.012500003, z: 0.11}

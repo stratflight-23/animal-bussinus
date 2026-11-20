@@ -1,0 +1,47 @@
+# ---- Unity generated folders (rebuilt automatically, never commit) ----
+/[Ll]ibrary/
+/[Tt]emp/
+/[Oo]bj/
+/[Ll]ogs/
+/[Uu]ser[Ss]ettings/
+/[Bb]uild/
+/[Bb]uilds/
+/[Mm]emoryCaptures/
+/[Rr]ecordings/
+
+# ---- IDE / project files Unity regenerates ----
+*.csproj
+*.sln
+*.slnx
+*.suo
+*.user
+*.userprefs
+*.pidb
+*.booproj
+*.unityproj
+*.svd
+*.pdb
+*.mdb
+*.opendb
+*.VC.db
+.vs/
+.vscode/
+.idea/
+.consulo/
+
+# ---- Build output ----
+*.apk
+*.aab
+*.unitypackage
+*.app
+crashlytics-build.properties
+sysinfo.txt
+
+# ---- Auto-generated meta for ignored files ----
+*.pidb.meta
+*.pdb.meta
+*.mdb.meta
+
+# ---- OS junk ----
+.DS_Store
+Thumbs.db

@@ -1,0 +1,66 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ced1a992219480438bc70472112b1ec, type: 3}
+  m_Name: Decoy Gorilla
+  m_EditorClassIdentifier: Assembly-CSharp::WeaponData
+  weaponName: Decoy Gorilla
+  category: Traps & Gadgets
+  description: A tiny fake gorilla that honks when someone gets close.
+  price: 60
+  attackType: 4
+  damage: 0
+  cooldown: 1
+  range: 1.6
+  projectileSpeed: 20
+  knockback: 0
+  effect: 11
+  areaRadius: 0
+  singleUse: 1
+  affectsArea: 0
+  returnsAfterThrow: 0
+  spawnsBlock: 0
+  glows: 0
+  projectileGravity: 0
+  projectileShape: 0
+  projectileSize: 0.12
+  mass: 1.2
+  mainColor: {r: 0.36078432, g: 0.22745098, b: 0.11764706, a: 1}
+  accentColor: {r: 0.8509804, g: 0.65882355, b: 0.42352942, a: 1}
+  shape:
+  - shape: 0
+    size: {x: 0.16, y: 0.2, z: 0.13}
+    offset: {x: 0, y: 0, z: 0.06}
+    rotation: {x: 0, y: 0, z: 0}
+    color: {r: 0.36078432, g: 0.22745098, b: 0.11764706, a: 1}
+  - shape: 0
+    size: {x: 0.12, y: 0.12, z: 0.12}
+    offset: {x: 0, y: 0.15, z: 0.06}
+    rotation: {x: 0, y: 0, z: 0}
+    color: {r: 0.36078432, g: 0.22745098, b: 0.11764706, a: 1}
+  - shape: 0
+    size: {x: 0.08, y: 0.06, z: 0.03}
+    offset: {x: 0, y: 0.14, z: 0.12}
+    rotation: {x: 0, y: 0, z: 0}
+    color: {r: 0.8509804, g: 0.65882355, b: 0.42352942, a: 1}
+  - shape: 1
+    size: {x: 0.05, y: 0.09, z: 0.05}
+    offset: {x: 0.1, y: -0.02, z: 0.06}
+    rotation: {x: 0, y: 0, z: 20}
+    color: {r: 0.36078432, g: 0.22745098, b: 0.11764706, a: 1}
+  - shape: 1
+    size: {x: 0.05, y: 0.09, z: 0.05}
+    offset: {x: -0.1, y: -0.02, z: 0.06}
+    rotation: {x: 0, y: 0, z: -20}
+    color: {r: 0.36078432, g: 0.22745098, b: 0.11764706, a: 1}
+  catalogIndex: 75
+  length: 0.13499999
+  tipOffset: {x: 0, y: 0.048438594, z: 0.13499999}

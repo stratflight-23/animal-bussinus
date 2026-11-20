@@ -1,0 +1,71 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ced1a992219480438bc70472112b1ec, type: 3}
+  m_Name: Rubber Chicken
+  m_EditorClassIdentifier: Assembly-CSharp::WeaponData
+  weaponName: Rubber Chicken
+  category: Silly
+  description: SQUAWK! Every hit is a party.
+  price: 100
+  attackType: 0
+  damage: 4
+  cooldown: 0.4
+  range: 0.18
+  projectileSpeed: 20
+  knockback: 3
+  effect: 11
+  areaRadius: 0
+  singleUse: 0
+  affectsArea: 0
+  returnsAfterThrow: 0
+  spawnsBlock: 0
+  glows: 0
+  projectileGravity: 0
+  projectileShape: 0
+  projectileSize: 0.12
+  mass: 0.5
+  mainColor: {r: 1, g: 0.88235295, b: 0.3019608, a: 1}
+  accentColor: {r: 1, g: 0.54901963, b: 0.101960786, a: 1}
+  shape:
+  - shape: 2
+    size: {x: 0.02, y: 0.099999994, z: 0.02}
+    offset: {x: 0, y: 0, z: -0.02}
+    rotation: {x: 90, y: 0, z: 0}
+    color: {r: 1, g: 0.54901963, b: 0.101960786, a: 1}
+  - shape: 0
+    size: {x: 0.09, y: 0.09, z: 0.32}
+    offset: {x: 0, y: 0, z: 0.25}
+    rotation: {x: 0, y: 0, z: 0}
+    color: {r: 1, g: 0.88235295, b: 0.3019608, a: 1}
+  - shape: 1
+    size: {x: 0.05, y: 0.049999997, z: 0.05}
+    offset: {x: 0, y: 0, z: 0.43}
+    rotation: {x: 90, y: 0, z: 0}
+    color: {r: 1, g: 0.88235295, b: 0.3019608, a: 1}
+  - shape: 0
+    size: {x: 0.09, y: 0.09, z: 0.09}
+    offset: {x: 0, y: 0.02, z: 0.52}
+    rotation: {x: 0, y: 0, z: 0}
+    color: {r: 1, g: 0.88235295, b: 0.3019608, a: 1}
+  - shape: 3
+    size: {x: 0.03, y: 0.02, z: 0.05}
+    offset: {x: 0, y: 0.01, z: 0.58}
+    rotation: {x: 0, y: 0, z: 0}
+    color: {r: 1, g: 0.54901963, b: 0.101960786, a: 1}
+  - shape: 3
+    size: {x: 0.015, y: 0.05, z: 0.05}
+    offset: {x: 0, y: 0.07, z: 0.52}
+    rotation: {x: 0, y: 0, z: 0}
+    color: {r: 0.9098039, g: 0.25490198, b: 0.23529412, a: 1}
+  catalogIndex: 90
+  length: 0.60499996
+  tipOffset: {x: 0, y: 0.024999999, z: 0.60499996}

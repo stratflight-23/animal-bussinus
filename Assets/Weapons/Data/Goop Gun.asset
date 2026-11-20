@@ -1,0 +1,61 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ced1a992219480438bc70472112b1ec, type: 3}
+  m_Name: Goop Gun
+  m_EditorClassIdentifier: Assembly-CSharp::WeaponData
+  weaponName: Goop Gun
+  category: Blasters
+  description: Shoots blobs of goop that slow targets.
+  price: 100
+  attackType: 3
+  damage: 6
+  cooldown: 0.3
+  range: 30
+  projectileSpeed: 22
+  knockback: 1.5
+  effect: 1
+  areaRadius: 0
+  singleUse: 0
+  affectsArea: 0
+  returnsAfterThrow: 0
+  spawnsBlock: 0
+  glows: 0
+  projectileGravity: 0
+  projectileShape: 0
+  projectileSize: 0.08
+  mass: 1
+  mainColor: {r: 0.23921569, g: 0.8627451, b: 0.3529412, a: 1}
+  accentColor: {r: 0.2901961, g: 0.30980393, b: 0.33333334, a: 1}
+  shape:
+  - shape: 3
+    size: {x: 0.045, y: 0.14, z: 0.06}
+    offset: {x: 0, y: -0.04, z: 0}
+    rotation: {x: 15, y: 0, z: 0}
+    color: {r: 0.2901961, g: 0.30980393, b: 0.33333334, a: 1}
+  - shape: 0
+    size: {x: 0.1, y: 0.11, z: 0.28}
+    offset: {x: 0, y: 0.06, z: 0.1}
+    rotation: {x: 0, y: 0, z: 0}
+    color: {r: 0.23921569, g: 0.8627451, b: 0.3529412, a: 1}
+  - shape: 2
+    size: {x: 0.04, y: 0.080000006, z: 0.04}
+    offset: {x: 0, y: 0.06, z: 0.28}
+    rotation: {x: 90, y: 0, z: 0}
+    color: {r: 0.2901961, g: 0.30980393, b: 0.33333334, a: 1}
+  - shape: 0
+    size: {x: 0.09, y: 0.09, z: 0.09}
+    offset: {x: 0, y: 0.14, z: 0.02}
+    rotation: {x: 0, y: 0, z: 0}
+    color: {r: 0.12156863, g: 0.5411765, b: 0.22745098, a: 1}
+  catalogIndex: 40
+  length: 0.36
+  tipOffset: {x: 0, y: 0.03481032, z: 0.36}

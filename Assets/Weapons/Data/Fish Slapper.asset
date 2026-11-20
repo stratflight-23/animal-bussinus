@@ -1,0 +1,61 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ced1a992219480438bc70472112b1ec, type: 3}
+  m_Name: Fish Slapper
+  m_EditorClassIdentifier: Assembly-CSharp::WeaponData
+  weaponName: Fish Slapper
+  category: Silly
+  description: A cold, wet, floppy fish. Slap!
+  price: 110
+  attackType: 0
+  damage: 5
+  cooldown: 0.4
+  range: 0.18
+  projectileSpeed: 20
+  knockback: 5
+  effect: 11
+  areaRadius: 0
+  singleUse: 0
+  affectsArea: 0
+  returnsAfterThrow: 0
+  spawnsBlock: 0
+  glows: 0
+  projectileGravity: 0
+  projectileShape: 0
+  projectileSize: 0.12
+  mass: 1.2
+  mainColor: {r: 0.3647059, g: 0.6784314, b: 0.8862745, a: 1}
+  accentColor: {r: 0.105882354, g: 0.30980393, b: 0.44705883, a: 1}
+  shape:
+  - shape: 3
+    size: {x: 0.12, y: 0.01, z: 0.08}
+    offset: {x: 0, y: 0, z: 0.03}
+    rotation: {x: 0, y: 0, z: 90}
+    color: {r: 0.105882354, g: 0.30980393, b: 0.44705883, a: 1}
+  - shape: 0
+    size: {x: 0.07, y: 0.14, z: 0.5}
+    offset: {x: 0, y: 0, z: 0.32}
+    rotation: {x: 0, y: 0, z: 0}
+    color: {r: 0.3647059, g: 0.6784314, b: 0.8862745, a: 1}
+  - shape: 0
+    size: {x: 0.03, y: 0.03, z: 0.03}
+    offset: {x: 0.03, y: 0.03, z: 0.5}
+    rotation: {x: 0, y: 0, z: 0}
+    color: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+  - shape: 0
+    size: {x: 0.015, y: 0.015, z: 0.015}
+    offset: {x: 0.04, y: 0.03, z: 0.51}
+    rotation: {x: 0, y: 0, z: 0}
+    color: {r: 0.13333334, g: 0.13333334, b: 0.13333334, a: 1}
+  catalogIndex: 92
+  length: 0.57
+  tipOffset: {x: 0.0062499978, y: 0, z: 0.57}
