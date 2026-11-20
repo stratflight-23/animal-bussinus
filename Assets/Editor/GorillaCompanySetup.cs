@@ -75,8 +75,32 @@ public static class GorillaCompanySetup
         lava.AddComponent<KillZone>();
 
         // ---- Player
+        var player = CreatePlayer(new Vector3(0f, 0.05f, 0f), Quaternion.identity);
+
+        // ---- Save and make it the scene that gets built
+        EditorSceneManager.SaveScene(scene, ScenePath);
+
+        var buildScenes = new List<EditorBuildSettingsScene> { new EditorBuildSettingsScene(ScenePath, true) };
+        foreach (var s in EditorBuildSettings.scenes)
+            if (s.path != ScenePath)
+                buildScenes.Add(new EditorBuildSettingsScene(s.path, false)); // keep old scenes, but turned off
+        EditorBuildSettings.scenes = buildScenes.ToArray();
+
+        Selection.activeGameObject = player;
+        EditorUtility.DisplayDialog("Gorilla Company",
+            "Test scene built and saved as Assets/Scenes/GorillaTest.unity.\n\n" +
+            "It's now the first scene in the build.\n" +
+            "Left stick = walk, A = jump, grip = grab walls, red lava = death + respawn.", "OK");
+    }
+
+    // ---------------------------------------------------------------- player
+
+    // Builds the VR gorilla player (Rigidbody + capsule + movement + death, camera and two tracked hands).
+    // Used by "2. Build VR Test Scene" and by the Jungle Temple map builder.
+    public static GameObject CreatePlayer(Vector3 position, Quaternion rotation)
+    {
         var player = new GameObject("GorillaPlayer");
-        player.transform.position = new Vector3(0f, 0.05f, 0f);
+        player.transform.SetPositionAndRotation(position, rotation);
 
         var rb = player.AddComponent<Rigidbody>();
         rb.freezeRotation = true;
@@ -108,20 +132,7 @@ public static class GorillaCompanySetup
         MakeHand("Left Hand", offset.transform, "LeftHand", -0.2f);
         MakeHand("Right Hand", offset.transform, "RightHand", 0.2f);
 
-        // ---- Save and make it the scene that gets built
-        EditorSceneManager.SaveScene(scene, ScenePath);
-
-        var buildScenes = new List<EditorBuildSettingsScene> { new EditorBuildSettingsScene(ScenePath, true) };
-        foreach (var s in EditorBuildSettings.scenes)
-            if (s.path != ScenePath)
-                buildScenes.Add(new EditorBuildSettingsScene(s.path, false)); // keep old scenes, but turned off
-        EditorBuildSettings.scenes = buildScenes.ToArray();
-
-        Selection.activeGameObject = player;
-        EditorUtility.DisplayDialog("Gorilla Company",
-            "Test scene built and saved as Assets/Scenes/GorillaTest.unity.\n\n" +
-            "It's now the first scene in the build.\n" +
-            "Left stick = walk, A = jump, grip = grab walls, red lava = death + respawn.", "OK");
+        return player;
     }
 
     // ---------------------------------------------------------------- helpers

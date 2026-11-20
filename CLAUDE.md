@@ -90,9 +90,46 @@ prefabs in ModPowers.spawnables when it refills the list).
 - No fall damage exists yet; if added it must go through `Health.TakeDamage` so the safe zone covers it.
 - Test key (mod, flat screen): **J** = a "wild" kitten with no owner that CAN scratch you.
 
+## Jungle Temple map (added Nov 20, 2026) - the main scene
+Built by **Gorilla Company > 9. Build Jungle Temple Map** (`Assets/Editor/JungleTempleBuilder.cs`, command line:
+`-executeMethod JungleTempleBuilder.BuildFromCommandLine`). Saves `Assets/Scenes/JungleTemple.unity` (first in Build Settings;
+other scenes kept but OFF). Re-running REBUILDS the scene from scratch (hand edits lost - change the builder instead).
+Original layout, primitives only. New colors in `Assets/Materials/JungleTemple/` (JT_* = copies of our Simple/GoldGlow materials,
+recolored; *Glow ones are emissive). Spike meshes combined into one mesh per trap in `Assets/Scenes/JungleTemple_Generated/`.
+`GorillaCompanySetup.CreatePlayer(pos, rot)` builds the VR player (shared with menu 2).
+- **Area 1 - Treehouse Base** (around 0,0,0, deck top y = 8): 20x20 m deck in 4 giant climbable trees, railings, rope bridges
+  east/west to two lookout trees, jungle floor at y = 0 (climb trunks back up). Spawn Point (0, 8, -4) facing north + Spawn Safe
+  Zone (3.05 m). Mod Panel at (-5.5, 9.2, -8.3). Sell Bin (6.2, 8, -6.2) with price sign. Shop Stand placeholder (-6.5, 8, 3.5).
+  Weapon Rack placeholder (7, 8, 3.5). Coin Scoreboard (-5.5, 8, 9.2). Temple Portal (0, 8, 9.6) -> temple.
+  PlayerDeathPhysics.respawnPoint = Spawn Point.
+- **Area 2 - Jungle Temple** (center 0,0,400; spans x -30..30, z 370..430; floor 2 at y = 5, roof y = 10). Temple-local grid:
+  ```
+           x: -30..-12      -12..-8   -8..8           8..12   12..30
+  z 12..30   GREAT STAIR     hall      (solid)         hall    CLIMBING SHAFT   floor 1
+             UPPER GALLERY   hall      IDOL SANCTUM    hall    TREASURE VAULT   floor 2
+  z  8..12   ------------------ hallway (both floors) ------------------
+  z -8..8    CRYSTAL CAVE    hall      SUNKEN PIT      hall    LAVA BRIDGE      (pit room 2 floors tall)
+  z-12..-8   ------------------------- hallway --------------------------
+  z-30..-12  STOREROOM       hall      ENTRANCE HALL   hall    SPIKE GALLERY
+                                       (door south; plaza + Portal Home outside at z -46)
+  ```
+  Up to floor 2: ramp in Great Stair, climb blocks in Climbing Shaft, 2 elevators (Moving_Platform prefab, rises 5 m) in the
+  Sunken Pit to doors in its north wall. Sunken Pit: 10x10 m lava pit, island with loot, 3 `TempleMover` sliding platforms.
+  Hazards: lava (KillZone) in pit, Lava Bridge room, Idol Sanctum; `SpikeFloor` (15 dmg through Health) x2 in Spike Gallery,
+  x1 in front of the Idol Sanctum. Crystal Cave is lit only by crystals.
+  Loot: 25 `LootSpawnPoint`s (tier 1 x8 near entrance, tier 2 x11, tier 3 x5 deep/upstairs, tier 4 = Temple Idol in Idol Sanctum).
+  8 `MonsterSpawn` markers (empty, for later).
+- Scripts in `Assets/Scripts/Map/`: `LootItem` (7 loot types + values, built from primitives, kinematic until grabbed),
+  `LootSpawnPoint` (re-rolled each time you enter through the Temple Portal; loot carried out of the temple is kept),
+  `SellBin` (trigger; pays `CurrencyWallet`), `TemplePortal` (teleport; held items come along), `SpikeFloor`, `TempleMover`,
+  `CoinScoreboard`, `MapAreaLighting` (bright base / dark temple: switches ambient, fog, sun by player position), `MonsterSpawn`.
+- Quest performance: no real-time shadows, 17 point lights (no shadows, short range) + emissive materials, everything that
+  doesn't move is marked Static (static batching), camera far clip 250 m, fog. Not lightmap-baked yet (optional later:
+  Window > Rendering > Lighting > Generate Lighting).
+
 ## Gorilla Company menu (Unity top bar)
 1. Install VR Packages  2. Build VR Test Scene  3. Add Mod Panel  4. Generate All Weapons  5. Add Weapon Range
-(10 racks behind the spawn + 5 dummies, fills ModPowers.spawnables)  6. Add Goop Copter  7. Add Kitty Blaster (Mod Only)  8. Add Spawn Safe Zone
+(10 racks behind the spawn + 5 dummies, fills ModPowers.spawnables)  6. Add Goop Copter  7. Add Kitty Blaster (Mod Only)  8. Add Spawn Safe Zone  9. Build Jungle Temple Map
 Extras > Add Training Dummy / Add Test Ball.  Build > Quest (Android APK) / Linux Desktop.
 Flat-screen test keys: copter F (in/out), WASD, Q/E turn, Space/Ctrl up/down. Mod (after code + Enter): K = Kitty Blaster, L = launch kitten, J = wild kitten that scratches you.
 
