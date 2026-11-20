@@ -15,6 +15,11 @@ public class TemplePortal : MonoBehaviour
 
     static float nextAllowed; // stops you bouncing straight back through the other portal
 
+    // Reset when Play starts. (This project uses fast Play mode, which keeps "static" values between runs;
+    // without this, the portals could stay switched off for minutes after pressing Play again.)
+    [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
+    static void ResetStatics() => nextAllowed = 0f;
+
     void Reset() => GetComponent<Collider>().isTrigger = true;
 
     void OnTriggerEnter(Collider other)
@@ -35,6 +40,14 @@ public class TemplePortal : MonoBehaviour
         }
         player.transform.SetPositionAndRotation(pos, rot);
         Physics.SyncTransforms();
+
+        // if you were hanging on a wall, let go (turning movement off and on resets it)
+        var loco = player.GetComponent<gorillalocomotion>();
+        if (loco != null && loco.enabled)
+        {
+            loco.enabled = false;
+            loco.enabled = true;
+        }
 
         if (respawnTempleLoot) LootSpawnPoint.RespawnAll(templeArea);
 

@@ -17,6 +17,8 @@ using UnityEngine.XR.OpenXR;
 public static class VRSetup
 {
     const string MetaQuestFeatureSet = "com.unity.openxr.featureset.metaquest";
+    // same value as XRGeneralSettings.k_SettingsKey (renamed in XR Plug-in Management 4.7), so it works on any version
+    const string LoaderSettingsKey = "com.unity.xr.management.loader_settings";
 
     [MenuItem("Gorilla Company/Extras/Set Up OpenXR (PC + Quest)")]
     static void SetUpMenu()
@@ -96,13 +98,13 @@ public static class VRSetup
 
     static XRGeneralSettingsPerBuildTarget GetOrCreatePerTargetSettings()
     {
-        EditorBuildSettings.TryGetConfigObject(XRGeneralSettings.k_SettingsKey, out XRGeneralSettingsPerBuildTarget perTarget);
+        EditorBuildSettings.TryGetConfigObject(LoaderSettingsKey, out XRGeneralSettingsPerBuildTarget perTarget);
         if (perTarget != null) return perTarget;
 
         if (!AssetDatabase.IsValidFolder("Assets/XR")) AssetDatabase.CreateFolder("Assets", "XR");
         perTarget = ScriptableObject.CreateInstance<XRGeneralSettingsPerBuildTarget>();
         AssetDatabase.CreateAsset(perTarget, "Assets/XR/XRGeneralSettingsPerBuildTarget.asset");
-        EditorBuildSettings.AddConfigObject(XRGeneralSettings.k_SettingsKey, perTarget, true);
+        EditorBuildSettings.AddConfigObject(LoaderSettingsKey, perTarget, true);
         return perTarget;
     }
 }

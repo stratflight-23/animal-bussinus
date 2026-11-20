@@ -208,8 +208,11 @@ static class GorillaRigBootstrap
     static void Init()
     {
         Setup();
-        SceneManager.sceneLoaded += (scene, mode) => Setup();
+        SceneManager.sceneLoaded -= OnSceneLoaded;   // fast Play mode: don't add it twice
+        SceneManager.sceneLoaded += OnSceneLoaded;
     }
+
+    static void OnSceneLoaded(Scene scene, LoadSceneMode mode) => Setup();
 
     public static void Setup()
     {

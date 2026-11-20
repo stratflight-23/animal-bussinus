@@ -22,6 +22,8 @@ public static class Combat
     public static void HitTarget(WeaponData d, GameObject target, Vector3 point, Vector3 direction, GameObject attacker, float scale = 1f)
     {
         if (target == null || target == attacker) return;
+        // Players in the spawn safe zone are untouchable: no damage, no knockback, no freeze/stun/teleport.
+        if (SpawnSafeZone.Protects(target.GetComponent<Health>())) return;
         direction.y = Mathf.Max(direction.y, 0f);
         Vector3 dir = direction.sqrMagnitude > 0.0001f ? direction.normalized : Vector3.up;
 

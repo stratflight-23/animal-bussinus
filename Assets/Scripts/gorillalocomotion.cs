@@ -151,6 +151,18 @@ public class gorillalocomotion : MonoBehaviour
         rb.linearVelocity = new Vector3(horizontal.x, vertical, horizontal.z);
     }
 
+    // Turned off (dying, flying, teleporting): forget any wall you were hanging on.
+    // Otherwise you'd get flung off a wall the moment you respawn.
+    void OnDisable()
+    {
+        if (isClinging)
+        {
+            isClinging = false;
+            if (rb != null) rb.useGravity = true;
+        }
+        jumpQueued = false;
+    }
+
     void StartCling(Vector3 normal)
     {
         isClinging = true;

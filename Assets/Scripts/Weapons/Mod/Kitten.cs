@@ -28,6 +28,14 @@ public class Kitten : MonoBehaviour
     static int healthCacheFrame = -1;
     static PhysicsMaterial slippery;
 
+    [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
+    static void ResetStatics()   // fast Play mode keeps statics between runs
+    {
+        alive.Clear();
+        healthCache = null;
+        healthCacheFrame = -1;
+    }
+
     static readonly Color Fur = new Color(0.07f, 0.07f, 0.09f);
     static readonly Color EyeYellow = new Color(1f, 0.88f, 0.15f);
     static readonly Color NosePink = new Color(1f, 0.55f, 0.7f);
