@@ -127,10 +127,19 @@ recolored; *Glow ones are emissive). Spike meshes combined into one mesh per tra
   doesn't move is marked Static (static batching), camera far clip 250 m, fog. Not lightmap-baked yet (optional later:
   Window > Rendering > Lighting > Generate Lighting).
 
+## VR setup status (Nov 20, 2026)
+- Packages installed: `com.unity.xr.management` 4.6.1, `com.unity.xr.openxr` 1.19.0 (in Packages/manifest.json).
+- `Assets/Editor/VRSetup.cs` = **Gorilla Company > Extras > Set Up OpenXR (PC + Quest)** (command line:
+  `-executeMethod VRSetup.SetUpFromCommandLine`; run it twice on a fresh setup, the first run creates the settings files).
+  PC: OpenXR ON + Oculus Touch & Meta Quest Touch Plus profiles ON (done). Android: OpenXR loader ON, IL2CPP + ARM64, min API 32;
+  the Meta Quest feature group + profiles can only be switched on AFTER Android Build Support is installed -> run it again then.
+- Linux can't do Quest Link (Windows only). Testing paths: Dad's Windows PC + Quest Link + Play, or build the APK and
+  `adb install` it (needs Android Build Support, Quest Developer Mode, `android-tools`).
+
 ## Gorilla Company menu (Unity top bar)
 1. Install VR Packages  2. Build VR Test Scene  3. Add Mod Panel  4. Generate All Weapons  5. Add Weapon Range
 (10 racks behind the spawn + 5 dummies, fills ModPowers.spawnables)  6. Add Goop Copter  7. Add Kitty Blaster (Mod Only)  8. Add Spawn Safe Zone  9. Build Jungle Temple Map
-Extras > Add Training Dummy / Add Test Ball.  Build > Quest (Android APK) / Linux Desktop.
+Extras > Add Training Dummy / Add Test Ball / Set Up OpenXR (PC + Quest).  Build > Quest (Android APK) / Linux Desktop.
 Flat-screen test keys: copter F (in/out), WASD, Q/E turn, Space/Ctrl up/down. Mod (after code + Enter): K = Kitty Blaster, L = launch kitten, J = wild kitten that scratches you.
 
 ## Status (Nov 20, 2026)
