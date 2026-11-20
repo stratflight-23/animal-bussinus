@@ -222,9 +222,14 @@ static class GorillaRigBootstrap
         if (player.GetComponent<Health>() == null) player.AddComponent<Health>();
         if (player.GetComponent<StatusEffects>() == null) player.AddComponent<StatusEffects>();
         if (player.GetComponent<PlayerHealthHud>() == null) player.AddComponent<PlayerHealthHud>();
+        if (player.GetComponent<PlayerAvatar>() == null) player.AddComponent<PlayerAvatar>();   // body + cosmetics
+        if (player.GetComponent<PlayerPets>() == null) player.AddComponent<PlayerPets>();       // your pet
 
         foreach (var t in player.GetComponentsInChildren<Transform>(true))
-            if ((t.name == "Left Hand" || t.name == "Right Hand") && t.GetComponent<HandGrabber>() == null)
-                t.gameObject.AddComponent<HandGrabber>();
+        {
+            if (t.name != "Left Hand" && t.name != "Right Hand") continue;
+            if (t.GetComponent<HandGrabber>() == null) t.gameObject.AddComponent<HandGrabber>();
+            if (t.GetComponent<HandPoker>() == null) t.gameObject.AddComponent<HandPoker>();   // press buttons, pet pets
+        }
     }
 }

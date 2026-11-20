@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d9ac75909d046baa929e03575e09733, type: 3}
+  m_Name: PetLibrary
+  m_EditorClassIdentifier: Assembly-CSharp::PetLibrary
+  all:
+  - {fileID: 11400000, guid: 215d6c489a26676f88d3e616632ccc4c, type: 2}
+  - {fileID: 11400000, guid: b2f76b3d91dfb83098d3585b6610e4e2, type: 2}
+  - {fileID: 11400000, guid: 9860e11923dc6e3f59f37bdd641536c2, type: 2}
+  - {fileID: 11400000, guid: 68329e7beda632944a5ba03c50d6550b, type: 2}
+  - {fileID: 11400000, guid: 3a7b93b0a0c12345f8ab6981ec4d9aa7, type: 2}
+  - {fileID: 11400000, guid: 034c7c244f44d6b96ab2adaf8459a827, type: 2}
+  - {fileID: 11400000, guid: 4569d8e9d139a81e480710260abcddef, type: 2}
+  - {fileID: 11400000, guid: 94170c38125f003ce96a12c3d224bdd8, type: 2}
+  - {fileID: 11400000, guid: 9811ca970dc69443bbc2505f2e5cb660, type: 2}
+  - {fileID: 11400000, guid: 0036903338d2fe755907e2041c58bc1e, type: 2}

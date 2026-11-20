@@ -1,0 +1,142 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae76cdbc8abacec1c96d27c3a4618bcf, type: 3}
+  m_Name: Gold Chain
+  m_EditorClassIdentifier: Assembly-CSharp::CosmeticData
+  id: gold_chain
+  displayName: Gold Chain
+  slot: 2
+  description: Big, shiny and very heavy.
+  price: 0
+  parts:
+  - name: Cylinder
+    shape: 2
+    size: {x: 0.06, y: 0.006, z: 0.06}
+    offset: {x: 0, y: -0.075, z: 0.11}
+    rotation: {x: 90, y: 0, z: 0}
+    color: {r: 1, g: 0.78, b: 0.15, a: 1}
+    glow: 1
+    spin: 0
+  - name: Sphere
+    shape: 0
+    size: {x: 0.022, y: 0.022, z: 0.022}
+    offset: {x: 0, y: -0.04, z: 0.105}
+    rotation: {x: 0, y: 0, z: 0}
+    color: {r: 1, g: 0.78, b: 0.15, a: 1}
+    glow: 0
+    spin: 0
+  - name: Sphere
+    shape: 0
+    size: {x: 0.022, y: 0.022, z: 0.022}
+    offset: {x: 0.045557786, y: -0.04, z: 0.09460173}
+    rotation: {x: 0, y: 0, z: 0}
+    color: {r: 1, g: 0.78, b: 0.15, a: 1}
+    glow: 0
+    spin: 0
+  - name: Sphere
+    shape: 0
+    size: {x: 0.022, y: 0.022, z: 0.022}
+    offset: {x: 0.0820923, y: -0.04, z: 0.06546643}
+    rotation: {x: 0, y: 0, z: 0}
+    color: {r: 1, g: 0.78, b: 0.15, a: 1}
+    glow: 0
+    spin: 0
+  - name: Sphere
+    shape: 0
+    size: {x: 0.022, y: 0.022, z: 0.022}
+    offset: {x: 0.10236743, y: -0.02, z: 0.02336468}
+    rotation: {x: 0, y: 0, z: 0}
+    color: {r: 1, g: 0.78, b: 0.15, a: 1}
+    glow: 0
+    spin: 0
+  - name: Sphere
+    shape: 0
+    size: {x: 0.022, y: 0.022, z: 0.022}
+    offset: {x: 0.10236743, y: -0.02, z: -0.023364685}
+    rotation: {x: 0, y: 0, z: 0}
+    color: {r: 1, g: 0.78, b: 0.15, a: 1}
+    glow: 0
+    spin: 0
+  - name: Sphere
+    shape: 0
+    size: {x: 0.022, y: 0.022, z: 0.022}
+    offset: {x: 0.08209231, y: -0.02, z: -0.06546642}
+    rotation: {x: 0, y: 0, z: 0}
+    color: {r: 1, g: 0.78, b: 0.15, a: 1}
+    glow: 0
+    spin: 0
+  - name: Sphere
+    shape: 0
+    size: {x: 0.022, y: 0.022, z: 0.022}
+    offset: {x: 0.045557775, y: -0.02, z: -0.09460172}
+    rotation: {x: 0, y: 0, z: 0}
+    color: {r: 1, g: 0.78, b: 0.15, a: 1}
+    glow: 0
+    spin: 0
+  - name: Sphere
+    shape: 0
+    size: {x: 0.022, y: 0.022, z: 0.022}
+    offset: {x: -0.0000000091793915, y: -0.02, z: -0.105}
+    rotation: {x: 0, y: 0, z: 0}
+    color: {r: 1, g: 0.78, b: 0.15, a: 1}
+    glow: 0
+    spin: 0
+  - name: Sphere
+    shape: 0
+    size: {x: 0.022, y: 0.022, z: 0.022}
+    offset: {x: -0.04555777, y: -0.02, z: -0.09460174}
+    rotation: {x: 0, y: 0, z: 0}
+    color: {r: 1, g: 0.78, b: 0.15, a: 1}
+    glow: 0
+    spin: 0
+  - name: Sphere
+    shape: 0
+    size: {x: 0.022, y: 0.022, z: 0.022}
+    offset: {x: -0.08209232, y: -0.02, z: -0.06546642}
+    rotation: {x: 0, y: 0, z: 0}
+    color: {r: 1, g: 0.78, b: 0.15, a: 1}
+    glow: 0
+    spin: 0
+  - name: Sphere
+    shape: 0
+    size: {x: 0.022, y: 0.022, z: 0.022}
+    offset: {x: -0.10236742, y: -0.02, z: -0.023364699}
+    rotation: {x: 0, y: 0, z: 0}
+    color: {r: 1, g: 0.78, b: 0.15, a: 1}
+    glow: 0
+    spin: 0
+  - name: Sphere
+    shape: 0
+    size: {x: 0.022, y: 0.022, z: 0.022}
+    offset: {x: -0.10236742, y: -0.02, z: 0.023364712}
+    rotation: {x: 0, y: 0, z: 0}
+    color: {r: 1, g: 0.78, b: 0.15, a: 1}
+    glow: 0
+    spin: 0
+  - name: Sphere
+    shape: 0
+    size: {x: 0.022, y: 0.022, z: 0.022}
+    offset: {x: -0.08209228, y: -0.04, z: 0.06546645}
+    rotation: {x: 0, y: 0, z: 0}
+    color: {r: 1, g: 0.78, b: 0.15, a: 1}
+    glow: 0
+    spin: 0
+  - name: Sphere
+    shape: 0
+    size: {x: 0.022, y: 0.022, z: 0.022}
+    offset: {x: -0.04555779, y: -0.04, z: 0.09460173}
+    rotation: {x: 0, y: 0, z: 0}
+    color: {r: 1, g: 0.78, b: 0.15, a: 1}
+    glow: 0
+    spin: 0
+  bodyStyle: 0
+  bodyColor: {r: 1, g: 1, b: 1, a: 1}

@@ -221,6 +221,12 @@ public static class JungleTempleBuilder
         ShopStand(root, new Vector3(-6.5f, y, 3.5f));
         WeaponRackSpot(root, new Vector3(7f, y, 3.5f));
 
+        // Wardrobe (free cosmetics + mirror) and Pet House on the south side of the deck, facing spawn
+        if (CosmeticLibrary.Load() == null) CosmeticsPetsSetup.GenerateCosmetics();
+        if (PetLibrary.Load() == null) CosmeticsPetsSetup.GeneratePets();
+        CosmeticsPetsSetup.BuildWardrobe(root, CosmeticsPetsSetup.MapWardrobePos, 0f);
+        CosmeticsPetsSetup.BuildPetHouse(root, CosmeticsPetsSetup.MapPetHousePos, 0f);
+
         // coin scoreboard (near the portal, facing spawn)
         var board = Group(root, "Coin Scoreboard", new Vector3(-5.5f, y, 9.2f));
         LBox(board, "Post", new Vector3(-1.3f, 1.2f, 0f), new Vector3(0.15f, 2.4f, 0.15f), darkWood);

@@ -101,6 +101,7 @@ recolored; *Glow ones are emissive). Spike meshes combined into one mesh per tra
   east/west to two lookout trees, jungle floor at y = 0 (climb trunks back up). Spawn Point (0, 8, -4) facing north + Spawn Safe
   Zone (3.05 m). Mod Panel at (-5.5, 9.2, -8.3). Sell Bin (6.2, 8, -6.2) with price sign. Shop Stand placeholder (-6.5, 8, 3.5).
   Weapon Rack placeholder (7, 8, 3.5). Coin Scoreboard (-5.5, 8, 9.2). Temple Portal (0, 8, 9.6) -> temple.
+  Wardrobe (-2.2, 8, -9.5) and Pet House (2.9, 8, -9.3), both facing north toward spawn.
   PlayerDeathPhysics.respawnPoint = Spawn Point.
 - **Area 2 - Jungle Temple** (center 0,0,400; spans x -30..30, z 370..430; floor 2 at y = 5, roof y = 10). Temple-local grid:
   ```
@@ -127,6 +128,30 @@ recolored; *Glow ones are emissive). Spike meshes combined into one mesh per tra
   doesn't move is marked Static (static batching), camera far clip 250 m, fog. Not lightmap-baked yet (optional later:
   Window > Rendering > Lighting > Generate Lighting).
 
+## Cosmetics + pets (added Nov 20, 2026) - everything FREE
+All original, built from primitives via `PartRecipe` (`Assets/Scripts/Util/PartRecipe.cs`: shape/size/offset/rotation/color,
+glow, spin; pets: parts named "Tail" wag around `tailPivot`, "Wing" flap). `PokePanel` = shared poke-button panel helper.
+- **Cosmetics** (`Assets/Scripts/Cosmetics/`): `CosmeticData` (id, name, slot Head/Face/Neck/Back/Hands/BodyColor, parts,
+  price = 0, body style Solid/Rainbow/Glow). 30 defined in `Assets/Editor/CosmeticCatalog.cs` -> menu **10. Generate Cosmetics**
+  -> `Assets/Cosmetics/Data/*.asset` + `Assets/Resources/GorillaCompany/CosmeticLibrary.asset` (Resources so the game can load it)
+  and adds layer **SelfHidden** (layer 8). `PlayerAvatar` (auto-added to GorillaPlayer) builds a primitive gorilla head/body that
+  follows the headset, wears items (one per slot), saves to PlayerPrefs `Cosmetic_<Slot>`. Head/body/head-face-neck-back items
+  are on SelfHidden, which the player's own camera skips (mirror sees them); gloves on hand spheres stay visible; Body Color
+  tints head/body/hand spheres. **Wardrobe** (menu **11. Add Wardrobe**): `MagicMirror` (camera -> `Assets/Materials/Wardrobe/
+  MirrorView.renderTexture`, flipped URP Unlit `MirrorGlass.mat`, camera only on within 5 m), panel `Wardrobe`
+  (< SLOT >, PREV/NEXT, WEAR, REMOVE, spinning preview). Flat-screen keys near it: C slot, Z/X prev/next, V wear, B remove.
+- **Pets** (`Assets/Scripts/Pets/`): `PetData` (parts, size, followSpeed, flies, bouncy, idleTrick Sit/Spin/Hop/Wag, tailPivot).
+  10 in `Assets/Editor/PetCatalog.cs` -> menu **12. Generate Pets** -> `Assets/Pets/Data` + `Resources/GorillaCompany/PetLibrary`.
+  `PlayerPets` (auto-added) = one pet out, saved as PlayerPrefs `Pet`. `PetFollower`: no solid collider (trigger + kinematic
+  Rigidbody only), no Health -> can't block/push you, ignored by kittens/lava/spikes. Follows ~1 m behind to the side with
+  raycast ground-following (ignores the owner + loose physics items), hops ledges up to 1.3 m, teleports if > 15 m or stuck,
+  fliers float near your shoulder. Idle trick after you stand still; touching it with a hand (HandPoker) = heart + buzz.
+  **Pet House** (menu **13. Add Pet House**): PREV/NEXT, preview on a stand, SUMMON, PUT AWAY. Keys near it: N/M, P, O.
+- Both are on the Treehouse deck (south side, facing spawn) in the Jungle Temple map (builder calls `CosmeticsPetsSetup`).
+- `GorillaRigBootstrap` now also adds PlayerAvatar, PlayerPets and HandPoker (both hands) to GorillaPlayer.
+- Command line: `-executeMethod CosmeticsPetsSetup.GenerateAllFromCommandLine`.
+- MULTIPLAYER TODO: sync worn cosmetic ids + pet id to other players (comments in PlayerAvatar / PlayerPets).
+
 ## VR setup status (Nov 20, 2026)
 - Packages installed: `com.unity.xr.management` 4.6.1, `com.unity.xr.openxr` 1.19.0 (in Packages/manifest.json).
 - `Assets/Editor/VRSetup.cs` = **Gorilla Company > Extras > Set Up OpenXR (PC + Quest)** (command line:
@@ -139,8 +164,9 @@ recolored; *Glow ones are emissive). Spike meshes combined into one mesh per tra
 ## Gorilla Company menu (Unity top bar)
 1. Install VR Packages  2. Build VR Test Scene  3. Add Mod Panel  4. Generate All Weapons  5. Add Weapon Range
 (10 racks behind the spawn + 5 dummies, fills ModPowers.spawnables)  6. Add Goop Copter  7. Add Kitty Blaster (Mod Only)  8. Add Spawn Safe Zone  9. Build Jungle Temple Map
+10. Generate Cosmetics  11. Add Wardrobe  12. Generate Pets  13. Add Pet House
 Extras > Add Training Dummy / Add Test Ball / Set Up OpenXR (PC + Quest).  Build > Quest (Android APK) / Linux Desktop.
-Flat-screen test keys: copter F (in/out), WASD, Q/E turn, Space/Ctrl up/down. Mod (after code + Enter): K = Kitty Blaster, L = launch kitten, J = wild kitten that scratches you.
+Flat-screen test keys: copter F (in/out), WASD, Q/E turn, Space/Ctrl up/down. Mod (after code + Enter): K = Kitty Blaster, L = launch kitten, J = wild kitten that scratches you. Near the Wardrobe: C/Z/X/V/B. Near the Pet House: N/M/P/O.
 
 ## Status (Nov 20, 2026)
 - All scripts compile with 0 errors / 0 warnings (verified with a headless Unity compile). Not yet tested in a headset.
