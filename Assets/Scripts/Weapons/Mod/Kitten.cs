@@ -212,6 +212,8 @@ public class Kitten : MonoBehaviour
     {
         if (h == null || !h.isActiveAndEnabled || h.IsDead) return false;
         if (h.GetComponent<Kitten>() != null) return false;               // not other kittens
+        if (SpawnSafeZone.Protects(h)) return false;                      // not players in the spawn safe zone
+                                                                           // (a scratching kitten poofs if they step in)
         if (shooter != null && (h.gameObject == shooter || h.transform.IsChildOf(shooter.transform)))
             return false;                                                   // NEVER the mod who fired it
         return true;

@@ -3,13 +3,19 @@ using UnityEngine;
 
 // Hit points for anything that can be hurt: the player, training dummies, later other players.
 // If it's on the player (next to PlayerDeathPhysics), dying uses the normal death + respawn.
+//
+// SAFE ZONE: every kind of damage (weapons, kittens, burning, lava...) goes through TakeDamage or Kill below,
+// and both refuse to hurt a player standing in the spawn safe zone (SpawnSafeZone). One check, one place.
 public class Health : MonoBehaviour
 {
+    [Tooltip("Most health this can have. Players start with 100. Health refills to this on respawn.")]
     public float maxHealth = 100f;
 
     public float CurrentHealth { get; private set; }
     public bool IsDead { get; private set; }
     public bool IsShielded => Time.time < shieldUntil;
+    // True while this is a player standing inside the spawn safe zone (can't be hurt).
+    public bool IsInSafeZone => SpawnSafeZone.Protects(this);
 
     public event Action<float, Vector3> Damaged;   // amount, where it hit
     public event Action<float> Healed;
@@ -37,6 +43,12 @@ public class Health : MonoBehaviour
     public bool TakeDamage(float amount, Vector3 hitPoint, Vector3 hitDirection)
     {
         if (IsDead || amount <= 0f) return false;
+
+        // Players in the spawn safe zone can't take ANY damage.
+        // MULTIPLAYER NOTE: in multiplayer the SERVER must make this check (it decides who is in the safe
+        // zone and blocks the damage), so a hacked game can't get around it.
+        if (IsInSafeZone) return false;
+
         if (IsShielded)
         {
             Blocked?.Invoke();
@@ -47,6 +59,17 @@ public class Health : MonoBehaviour
         Damaged?.Invoke(amount, hitPoint);
         if (CurrentHealth <= 0f) Die(hitDirection);
         return true;
+    }
+
+    // Instantly kills (used by lava / kill zones). Goes through the same safe zone check as all other damage.
+    // Shields don't stop it.
+    public void Kill(Vector3 hitDirection)
+    {
+        if (IsDead || IsInSafeZone) return;
+        float amount = CurrentHealth;
+        CurrentHealth = 0f;
+        Damaged?.Invoke(amount, transform.position);
+        Die(hitDirection);
     }
 
     public void Heal(float amount)

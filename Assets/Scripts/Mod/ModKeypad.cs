@@ -69,6 +69,7 @@ public class ModKeypad : MonoBehaviour
             // Flat-screen test keys (no headset needed): K = KITTY button, L = launch one kitten from your view
             if (kb.kKey.wasPressedThisFrame) OnKitty();
             if (kb.lKey.wasPressedThisFrame) KittyBlaster.TestFireFromView(mod.gameObject);
+            if (kb.jKey.wasPressedThisFrame) KittyBlaster.TestWildKitten(mod.gameObject);  // J = a kitten that can scratch YOU
             return;
         }
         for (int d = 0; d < 10; d++)

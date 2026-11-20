@@ -38,6 +38,9 @@ public class PlayerDeathPhysics : MonoBehaviour
     public void TriggerDeath(Vector3 hitDirection)
     {
         if (IsDead) return; // can't die twice at once
+        // Backup check: nobody dies inside the spawn safe zone, even if something calls this directly.
+        // (In multiplayer the server must enforce the safe zone.)
+        if (SpawnSafeZone.IsInside(transform.position)) return;
         IsDead = true;
 
         // 1. Disable normal movement

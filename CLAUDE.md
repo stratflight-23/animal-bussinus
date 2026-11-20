@@ -75,11 +75,26 @@ prefabs in ModPowers.spawnables when it refills the list).
   `ModPowers.kittyBlasterPrefab` is empty. Flat-screen keys while mod: **K** = KITTY, **L** = launch a kitten from the camera.
 - MULTIPLAYER TODO: server must verify the shooter is a real mod before spawning kittens (comment in `KittyBlaster.TryFire`).
 
+## Player health + spawn safe zone (added Nov 20, 2026)
+- `Health` (already on GorillaPlayer via `GorillaRigBootstrap`; menu 8 also adds it in the editor): `maxHealth` 100 in the Inspector.
+  0 HP -> `PlayerDeathPhysics.TriggerDeath`; respawn refills to max. New `Health.Kill(dir)` (ignores shields) is what
+  `KillZone` (lava) now uses, so all damage/death goes through Health. KillZone also uses OnTriggerStay.
+- `PlayerHealthHud` (auto-added to GorillaPlayer): left-wrist panel (bar green >50 / yellow 25-50 / red <25, number,
+  "SAFE ZONE" while inside), faces the camera. Soft red glow strips at the view edges on damage (no shake/flash).
+- `SpawnSafeZone` (`Assets/Scripts/Combat/`, menu **8. Add Spawn Safe Zone**, placed at PlayerDeathPhysics.respawnPoint or the
+  player start): `radius` 3.05 m (10 ft), `height` 4 m. `Health.TakeDamage` and `Health.Kill` refuse damage when
+  `SpawnSafeZone.Protects(health)` (players only = has PlayerDeathPhysics; dummies can still be hit inside).
+  `PlayerDeathPhysics.TriggerDeath` has a backup check. Kittens skip protected players and poof if their target steps in.
+  Visuals are built at Play time (glowing ring + faint dome via `SeeThrough`, which uses the always-included Sprites/Default
+  shader); a gizmo circle shows it in the Scene view. MULTIPLAYER TODO: the server must decide who is in the zone.
+- No fall damage exists yet; if added it must go through `Health.TakeDamage` so the safe zone covers it.
+- Test key (mod, flat screen): **J** = a "wild" kitten with no owner that CAN scratch you.
+
 ## Gorilla Company menu (Unity top bar)
 1. Install VR Packages  2. Build VR Test Scene  3. Add Mod Panel  4. Generate All Weapons  5. Add Weapon Range
-(10 racks behind the spawn + 5 dummies, fills ModPowers.spawnables)  6. Add Goop Copter  7. Add Kitty Blaster (Mod Only)
+(10 racks behind the spawn + 5 dummies, fills ModPowers.spawnables)  6. Add Goop Copter  7. Add Kitty Blaster (Mod Only)  8. Add Spawn Safe Zone
 Extras > Add Training Dummy / Add Test Ball.  Build > Quest (Android APK) / Linux Desktop.
-Flat-screen test keys: copter F (in/out), WASD, Q/E turn, Space/Ctrl up/down. Mod (after code + Enter): K = Kitty Blaster, L = launch kitten.
+Flat-screen test keys: copter F (in/out), WASD, Q/E turn, Space/Ctrl up/down. Mod (after code + Enter): K = Kitty Blaster, L = launch kitten, J = wild kitten that scratches you.
 
 ## Status (Nov 20, 2026)
 - All scripts compile with 0 errors / 0 warnings (verified with a headless Unity compile). Not yet tested in a headset.

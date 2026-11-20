@@ -119,6 +119,19 @@ public class KittyBlaster : MonoBehaviour
         KittySounds.Play(null, KittySounds.Mrrp, start, 0.6f);
     }
 
+    // Testing only (J key, mods): drops a "wild" kitten that nobody owns 2.5 m in front of you.
+    // Unlike your own kittens it CAN scratch you - handy for testing your health and the safe zone.
+    public static void TestWildKitten(GameObject player)
+    {
+        if (!IsModPlayer(player) || Camera.main == null) return;
+        Vector3 fwd = Camera.main.transform.forward;
+        fwd.y = 0f;
+        fwd = fwd.sqrMagnitude > 0.01f ? fwd.normalized : player.transform.forward;
+        Vector3 pos = player.transform.position + fwd * 2.5f + Vector3.up * 0.6f;
+        Kitten.Spawn(pos, Vector3.up, null);
+        KittySounds.Play(null, KittySounds.Mrrp, pos, 0.6f);
+    }
+
     // ------------------------------------------------------------ building one (from shapes)
 
     // Builds a complete Kitty Blaster. Used by the editor menu (to save the prefab) and by the

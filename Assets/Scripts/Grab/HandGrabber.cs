@@ -218,6 +218,7 @@ static class GorillaRigBootstrap
 
         if (player.GetComponent<Health>() == null) player.AddComponent<Health>();
         if (player.GetComponent<StatusEffects>() == null) player.AddComponent<StatusEffects>();
+        if (player.GetComponent<PlayerHealthHud>() == null) player.AddComponent<PlayerHealthHud>();
 
         foreach (var t in player.GetComponentsInChildren<Transform>(true))
             if ((t.name == "Left Hand" || t.name == "Right Hand") && t.GetComponent<HandGrabber>() == null)
