@@ -19,6 +19,10 @@ public class ModPowers : MonoBehaviour
     [Header("Coins")]
     public int coinButtonAmount = 100;
 
+    [Header("Kitty Blaster (mod only)")]
+    [Tooltip("Set by Gorilla Company > 7. If empty, the KITTY button builds one from shapes instead.")]
+    public GameObject kittyBlasterPrefab;
+
     public bool IsMod { get; private set; }
     public bool IsFlying { get; private set; }
 
@@ -45,6 +49,14 @@ public class ModPowers : MonoBehaviour
         if (Camera.main != null) head = Camera.main.transform;
         var rh = GameObject.Find("Right Hand");
         if (rh != null) rightHand = rh.transform;
+
+        // Make sure the Kitty Blaster is in the SPAWN / NEXT list too (only if the list is already in use,
+        // so the default test shapes don't disappear).
+        if (kittyBlasterPrefab != null && HasPrefabs && System.Array.IndexOf(spawnables, kittyBlasterPrefab) < 0)
+        {
+            var list = new List<GameObject>(spawnables) { kittyBlasterPrefab };
+            spawnables = list.ToArray();
+        }
     }
 
     void OnDestroy()
@@ -166,6 +178,35 @@ public class ModPowers : MonoBehaviour
             obj.GetComponent<Renderer>().material.color = Random.ColorHSV(0f, 1f, 0.6f, 1f, 0.8f, 1f);
         }
         obj.name = "Spawned " + obj.name;
+        return obj;
+    }
+
+    // ------------------------------------------------------------ kitty blaster
+
+    // Spawns a Kitty Blaster floating just in front of the right hand. Mods only.
+    // MULTIPLAYER NOTE: the server must check the player is a real mod before spawning this for everyone.
+    public GameObject SpawnKittyBlaster()
+    {
+        if (!IsMod) return null;
+
+        Transform view = head != null ? head : transform;
+        Vector3 fwd = view.forward;
+        fwd.y = 0f;
+        if (fwd.sqrMagnitude < 0.01f) fwd = transform.forward;
+        fwd.Normalize();
+        Vector3 pos = (rightHand != null ? rightHand.position : view.position - Vector3.up * 0.4f) + fwd * 0.3f;
+        Quaternion rot = Quaternion.LookRotation(fwd);
+
+        GameObject obj = kittyBlasterPrefab != null
+            ? Instantiate(kittyBlasterPrefab, pos, rot)
+            : KittyBlaster.Create(pos, rot);
+        obj.name = "Kitty Blaster";
+
+        // Float in the air until grabbed (grabbing + letting go turns normal physics back on).
+        var body = obj.GetComponent<Rigidbody>();
+        if (body != null) body.isKinematic = true;
+        FxSpawner.Confetti(pos, 15);
+        KittySounds.Play(null, KittySounds.Mrrp, pos, 0.5f);
         return obj;
     }
 

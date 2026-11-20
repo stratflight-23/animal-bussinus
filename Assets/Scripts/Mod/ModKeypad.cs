@@ -34,6 +34,7 @@ public class ModKeypad : MonoBehaviour
     static readonly Color Red = new Color(0.75f, 0.2f, 0.2f);
     static readonly Color Gold = new Color(0.9f, 0.7f, 0.15f);
     static readonly Color Blue = new Color(0.2f, 0.45f, 0.85f);
+    static readonly Color Pink = new Color(0.85f, 0.4f, 0.7f);
 
     void Start()
     {
@@ -62,7 +63,14 @@ public class ModKeypad : MonoBehaviour
 
         // Keyboard entry for testing on a flat screen
         var kb = Keyboard.current;
-        if (kb == null || (mod != null && mod.IsMod)) return;
+        if (kb == null) return;
+        if (mod != null && mod.IsMod)
+        {
+            // Flat-screen test keys (no headset needed): K = KITTY button, L = launch one kitten from your view
+            if (kb.kKey.wasPressedThisFrame) OnKitty();
+            if (kb.lKey.wasPressedThisFrame) KittyBlaster.TestFireFromView(mod.gameObject);
+            return;
+        }
         for (int d = 0; d < 10; d++)
             if (kb[digitKeys[d]].wasPressedThisFrame || kb[numpadKeys[d]].wasPressedThisFrame)
                 OnKey(d.ToString());
@@ -144,6 +152,12 @@ public class ModKeypad : MonoBehaviour
         Flash("+" + mod.coinButtonAmount + " COINS");
     }
 
+    void OnKitty()
+    {
+        var obj = mod.SpawnKittyBlaster();
+        Flash(obj != null ? "KITTY BLASTER!" : "MOD ONLY");
+    }
+
     void OnLock()
     {
         mod.Lock();
@@ -217,7 +231,8 @@ public class ModKeypad : MonoBehaviour
         modButtons.Add(MakeButton("SPAWN", new Vector3(0.095f, 0.12f, 0f), wide, Green, OnSpawn));
         modButtons.Add(MakeButton("NEXT", new Vector3(-0.095f, 0.02f, 0f), wide, Grey, OnNext));
         modButtons.Add(MakeButton("+COINS", new Vector3(0.095f, 0.02f, 0f), wide, Gold, OnCoins));
-        modButtons.Add(MakeButton("LOCK", new Vector3(0f, -0.14f, 0f), wide, Red, OnLock));
+        modButtons.Add(MakeButton("KITTY", new Vector3(0f, -0.08f, 0f), wide, Pink, OnKitty));
+        modButtons.Add(MakeButton("LOCK", new Vector3(0f, -0.18f, 0f), wide, Red, OnLock));
     }
 
     GameObject MakeButton(string label, Vector3 localPos, Vector2 size, Color color, System.Action onPress)

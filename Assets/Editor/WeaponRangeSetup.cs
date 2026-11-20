@@ -182,7 +182,10 @@ public static class WeaponRangeSetup
         if (mod == null) return "(No GorillaPlayer found, so the Mod Panel spawn list was not filled.)";
 
         Undo.RecordObject(mod, "Fill Mod Spawnables");
-        mod.spawnables = prefabs;
+        // keep mod-only items (like the Kitty Blaster from Assets/Weapons/Mod) that were already in the list
+        var modOnly = (mod.spawnables ?? new GameObject[0])
+            .Where(p => p != null && AssetDatabase.GetAssetPath(p).StartsWith("Assets/Weapons/Mod/"));
+        mod.spawnables = prefabs.Concat(modOnly).Distinct().ToArray();
         EditorUtility.SetDirty(mod);
         return $"The Mod Panel's SPAWN / NEXT buttons can now spawn all {prefabs.Length} weapons.";
     }
