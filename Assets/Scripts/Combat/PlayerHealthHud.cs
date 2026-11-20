@@ -10,7 +10,7 @@ using UnityEngine;
 public class PlayerHealthHud : MonoBehaviour
 {
     [Tooltip("Where the display sits, relative to the left controller (meters). -Z = toward your wrist.")]
-    public Vector3 wristOffset = new Vector3(0f, 0.045f, -0.09f);
+    public Vector3 wristOffset = new Vector3(0f, 0.15f, -0.14f);   // above the gorilla's thick forearm
 
     const float BarWidth = 0.08f;
     static readonly Color Green = new Color(0.25f, 0.9f, 0.35f);

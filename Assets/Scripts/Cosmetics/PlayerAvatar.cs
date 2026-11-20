@@ -2,7 +2,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 // Your gorilla's body + the cosmetics you're wearing. Added to GorillaPlayer automatically when the game starts.
-//   - Builds a simple body from shapes: a furry head (with face + eyes) that follows your headset, and a body under it.
+//   - Uses our low-poly gorilla (GorillaModel, from Assets/Characters/LowPolyGorilla.prefab) if it's on the player.
+//     If a scene doesn't have it yet, it builds a simple stand-in body from shapes instead.
 //   - Your own head, body, hats, face, neck and back items are on the "SelfHidden" layer, which YOUR camera skips,
 //     so nothing blocks your view. Mirrors (and later, other players) still see them. Gloves stay visible to you.
 //   - Body Color tints your head, body and hand spheres.
@@ -31,6 +32,8 @@ public class PlayerAvatar : MonoBehaviour
     readonly List<Renderer> fur = new List<Renderer>();
     readonly List<Material> furMaterials = new List<Material>();
     readonly List<PrimitiveColor> furColors = new List<PrimitiveColor>();
+    readonly List<float> furShade = new List<float>();
+    GorillaModel model;
 
     readonly Dictionary<CosmeticSlot, CosmeticData> worn = new Dictionary<CosmeticSlot, CosmeticData>();
     readonly Dictionary<CosmeticSlot, List<GameObject>> wornObjects = new Dictionary<CosmeticSlot, List<GameObject>>();
@@ -53,15 +56,26 @@ public class PlayerAvatar : MonoBehaviour
         hiddenLayer = LayerMask.NameToLayer(SelfHiddenLayerName);
         if (camera != null && hiddenLayer >= 0) camera.cullingMask &= ~(1 << hiddenLayer); // don't draw your own head
 
-        BuildBody();
-        UpdateAnchors();
-        Application.onBeforeRender += UpdateAnchors;
+        model = GetComponentInChildren<GorillaModel>(true);
+        if (model != null)
+        {
+            furColor = model.bodyColor;
+            foreach (var p in model.tintParts)
+                if (p != null && p.renderer != null) AddFur(p.renderer.gameObject, p.shade);
+            SetFurTint(furColor);
+        }
+        else
+        {
+            BuildBody();
+            UpdateAnchors();
+            Application.onBeforeRender += UpdateAnchors;
+        }
         LoadSaved();
     }
 
     void LateUpdate()
     {
-        UpdateAnchors();
+        if (model == null) UpdateAnchors();
         if (worn.TryGetValue(CosmeticSlot.BodyColor, out var bc) && bc.bodyStyle == BodyColorStyle.Rainbow)
             SetFurTint(Color.HSVToRGB(Mathf.Repeat(Time.time * 0.15f, 1f), 0.75f, 1f));
     }
@@ -85,13 +99,13 @@ public class PlayerAvatar : MonoBehaviour
             var made = new List<GameObject>();
             if (c.slot == CosmeticSlot.Hands)
             {
-                foreach (var holder in handHolders)
-                    made.Add(BuildItem(c, holder, -1));          // gloves: visible to you too
+                foreach (var holder in HandPoints())
+                    made.Add(BuildItem(c, holder, -1, Vector3.zero));          // gloves: visible to you too
             }
             else
             {
-                Transform anchor = c.slot == CosmeticSlot.Neck ? neckAnchor : c.slot == CosmeticSlot.Back ? bodyAnchor : headAnchor;
-                made.Add(BuildItem(c, anchor, hiddenLayer));     // hidden from your own camera
+                Transform anchor = AttachPoint(c.slot, out Vector3 offset);
+                made.Add(BuildItem(c, anchor, hiddenLayer, offset));         // hidden from your own camera
             }
             wornObjects[c.slot] = made;
         }
@@ -133,10 +147,35 @@ public class PlayerAvatar : MonoBehaviour
         }
     }
 
-    GameObject BuildItem(CosmeticData c, Transform anchor, int layer)
+    // Where each slot's items go. Cosmetic recipes are measured from the head's middle / under the chin / the body's
+    // middle, so the model's attachment points (which sit ON the surface and are scaled up for the bigger gorilla)
+    // get a small offset back to those spots.
+    Transform AttachPoint(CosmeticSlot slot, out Vector3 offset)
+    {
+        offset = Vector3.zero;
+        if (model == null)
+            return slot == CosmeticSlot.Neck ? neckAnchor : slot == CosmeticSlot.Back ? bodyAnchor : headAnchor;
+        switch (slot)
+        {
+            case CosmeticSlot.Head: offset = new Vector3(0f, -0.12f, 0f); return model.headTop;
+            case CosmeticSlot.Face: offset = new Vector3(0f, 0f, -0.12f); return model.face;
+            case CosmeticSlot.Neck: return model.neck;
+            case CosmeticSlot.Back: offset = new Vector3(0f, 0f, 0.14f); return model.back;
+            default: return model.chest;
+        }
+    }
+
+    IEnumerable<Transform> HandPoints()
+    {
+        if (model == null) return handHolders;
+        return new[] { model.leftHandPoint, model.rightHandPoint };
+    }
+
+    GameObject BuildItem(CosmeticData c, Transform anchor, int layer, Vector3 offset)
     {
         var root = new GameObject(c.displayName);
         root.transform.SetParent(anchor, false);
+        root.transform.localPosition = offset;
         PartRecipe.Build(c.parts, root.transform, layer);
         if (layer >= 0) root.layer = layer;
         return root;
@@ -166,7 +205,13 @@ public class PlayerAvatar : MonoBehaviour
 
     void SetFurTint(Color color)
     {
-        foreach (var pc in furColors) if (pc != null) pc.SetColor(color);
+        for (int i = 0; i < furColors.Count; i++)
+        {
+            if (furColors[i] == null) continue;
+            Color c = color * furShade[i];   // darker facets stay darker
+            c.a = 1f;
+            furColors[i].SetColor(c);
+        }
     }
 
     // ------------------------------------------------------------ the body
@@ -205,6 +250,7 @@ public class PlayerAvatar : MonoBehaviour
                 fur.Add(r);
                 furMaterials.Add(r.sharedMaterial);
                 furColors.Add(pc);
+                furShade.Add(1f);
             }
             var holder = new GameObject("Glove Spot").transform;
             holder.SetParent(t, false);
@@ -224,12 +270,15 @@ public class PlayerAvatar : MonoBehaviour
         return go;
     }
 
-    void AddFur(GameObject go)
+    void AddFur(GameObject go, float shade = 1f)
     {
         var r = go.GetComponent<Renderer>();
+        var pc = go.GetComponent<PrimitiveColor>();
+        if (pc == null) pc = go.AddComponent<PrimitiveColor>();
         fur.Add(r);
         furMaterials.Add(r.sharedMaterial);
-        furColors.Add(go.GetComponent<PrimitiveColor>());
+        furColors.Add(pc);
+        furShade.Add(shade);
     }
 
     // Head follows the headset; neck and body hang below it and only turn left/right.

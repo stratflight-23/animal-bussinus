@@ -132,6 +132,7 @@ public static class GorillaCompanySetup
         MakeHand("Left Hand", offset.transform, "LeftHand", -0.2f);
         MakeHand("Right Hand", offset.transform, "RightHand", 0.2f);
 
+        GorillaModelBuilder.AttachIfBuilt(player);   // our low-poly gorilla, if menu 14 has been run
         return player;
     }
 

@@ -152,6 +152,27 @@ glow, spin; pets: parts named "Tail" wag around `tailPivot`, "Wing" flap). `Poke
 - Command line: `-executeMethod CosmeticsPetsSetup.GenerateAllFromCommandLine`.
 - MULTIPLAYER TODO: sync worn cosmetic ids + pet id to other players (comments in PlayerAvatar / PlayerPets).
 
+## Player model: low-poly gorilla (added Nov 20, 2026)
+- `Assets/Characters/LowPolyGorilla.prefab`, built by **Gorilla Company > 14. Build Player Model**
+  (`Assets/Editor/GorillaModelBuilder.cs`; command line `-executeMethod GorillaModelBuilder.BuildFromCommandLine`, which also
+  puts it on GorillaPlayer in JungleTemple.unity / GorillaTest.unity). Re-running replaces any older model on the player.
+  `GorillaCompanySetup.CreatePlayer` adds it automatically once it exists.
+- Original design, flat-shaded: meshes generated in code (every triangle has its own normal) and saved in
+  `Assets/Characters/Meshes/` (LowPoly_Ball 5x8, LowPoly_Tube 6-sided y 0..1, LowPoly_ElbowRing, LowPoly_CClaw = 270deg torus
+  arc, gap facing +Z). One URP Lit material `LowPolyGorilla.mat`; colors via PrimitiveColor: #7aa9c2 main, shade 0.76 (#5d8aa3)
+  and 0.62 (#4c7489) for darker facets. Hunched torso (Lean child tilted 20deg), big head pushed forward with brow ridge,
+  bulging eyes + pupils, nostrils, boxy muzzle, ears; thick arms + elbow rings + C claws (1.5x); short leg stubs.
+- `Assets/Scripts/Characters/GorillaModel.cs` drives it every frame (LateUpdate + onBeforeRender): head = headset
+  (+headOffset), body = below/behind head, yaw only (+bodyOffset), hands = "Left Hand"/"Right Hand" controllers, simple
+  2-bone arm IK between shoulder and wrist (elbow points down/out/back; arms stretch straight when reaching far).
+  Head + body go on layer SelfHidden (own camera skips them; mirror sees them); arms + hands visible to you.
+  The old hand spheres' renderers are hidden (their HandPoker triggers still work).
+- Attachment points (with scale so the cosmetics made for the old 0.24 m head fit): Head_Top & Face (x1.33, under Head),
+  Neck, Back, Chest (x1.5, under Body), LeftHand / RightHand (x1.5, under each hand). `PlayerAvatar` uses them (with small
+  offsets back to the recipe origins) and tints `tintParts` (keeps each part's shade) for Body Color cosmetics. If a scene
+  has no GorillaModel, PlayerAvatar falls back to its old simple primitive body.
+- Wrist health bar default offset moved up to (0, 0.15, -0.14) so it sits above the thick forearm.
+
 ## VR setup status (Nov 20, 2026)
 - Packages installed: `com.unity.xr.management` 4.6.1, `com.unity.xr.openxr` 1.19.0 (in Packages/manifest.json).
 - `Assets/Editor/VRSetup.cs` = **Gorilla Company > Extras > Set Up OpenXR (PC + Quest)** (command line:
@@ -164,7 +185,7 @@ glow, spin; pets: parts named "Tail" wag around `tailPivot`, "Wing" flap). `Poke
 ## Gorilla Company menu (Unity top bar)
 1. Install VR Packages  2. Build VR Test Scene  3. Add Mod Panel  4. Generate All Weapons  5. Add Weapon Range
 (10 racks behind the spawn + 5 dummies, fills ModPowers.spawnables)  6. Add Goop Copter  7. Add Kitty Blaster (Mod Only)  8. Add Spawn Safe Zone  9. Build Jungle Temple Map
-10. Generate Cosmetics  11. Add Wardrobe  12. Generate Pets  13. Add Pet House
+10. Generate Cosmetics  11. Add Wardrobe  12. Generate Pets  13. Add Pet House  14. Build Player Model
 Extras > Add Training Dummy / Add Test Ball / Set Up OpenXR (PC + Quest).  Build > Quest (Android APK) / Linux Desktop.
 Flat-screen test keys: copter F (in/out), WASD, Q/E turn, Space/Ctrl up/down. Mod (after code + Enter): K = Kitty Blaster, L = launch kitten, J = wild kitten that scratches you. Near the Wardrobe: C/Z/X/V/B. Near the Pet House: N/M/P/O.
 
