@@ -21,6 +21,6 @@ public class HandPoker : MonoBehaviour
 
     public void Buzz(float strength = 0.4f, float seconds = 0.05f)
     {
-        InputDevices.GetDeviceAtXRNode(node).SendHapticImpulse(0u, strength, seconds);
+        VRInput.Buzz(node, strength, seconds);
     }
 }

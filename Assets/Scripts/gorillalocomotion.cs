@@ -20,6 +20,10 @@ public class gorillalocomotion : MonoBehaviour
     [Tooltip("Ignore tiny thumbstick drift.")]
     public float stickDeadzone = 0.15f;
 
+    [Header("Turning")]
+    [Tooltip("Flick the right stick left/right to turn this many degrees (0 = off, turn your body instead).")]
+    public float snapTurnDegrees = 45f;
+
     [Header("Wall Grab Settings")]
     [Tooltip("Max seconds you can hang on walls before touching the ground again.")]
     public float maxClimbTime = 10f;
@@ -47,6 +51,8 @@ public class gorillalocomotion : MonoBehaviour
     private bool gripHeld;
     private bool jumpHeldLastFrame;
     private bool jumpQueued;
+    private float turnQueued;
+    private bool turnStickWasCentered = true;
 
     void Start()
     {
@@ -64,17 +70,14 @@ public class gorillalocomotion : MonoBehaviour
     // Read controller input every frame (Update), do physics in FixedUpdate.
     void Update()
     {
-        InputDevice left = InputDevices.GetDeviceAtXRNode(XRNode.LeftHand);
-        InputDevice right = InputDevices.GetDeviceAtXRNode(XRNode.RightHand);
-
         // Left thumbstick = walk
         moveInput = Vector2.zero;
-        if (left.TryGetFeatureValue(CommonUsages.primary2DAxis, out Vector2 stick) && stick.magnitude > stickDeadzone)
+        if (VRInput.Stick(XRNode.LeftHand, out Vector2 stick) && stick.magnitude > stickDeadzone)
             moveInput = Vector2.ClampMagnitude(stick, 1f);
 
         // Grip on either hand = grab wall
-        bool leftGrip = left.TryGetFeatureValue(CommonUsages.gripButton, out bool lg) && lg;
-        bool rightGrip = right.TryGetFeatureValue(CommonUsages.gripButton, out bool rg) && rg;
+        bool leftGrip = VRInput.Grip(XRNode.LeftHand);
+        bool rightGrip = VRInput.Grip(XRNode.RightHand);
         // A hand that's holding or touching an item (or a handle like the copter lever) uses its grip
         // for that, not for walls.
         if (HandGrabber.IsBusy(XRNode.LeftHand)) leftGrip = false;
@@ -82,7 +85,16 @@ public class gorillalocomotion : MonoBehaviour
         gripHeld = leftGrip || rightGrip;
 
         // Right A button = jump (only on the press, not while held)
-        bool jumpHeld = right.TryGetFeatureValue(CommonUsages.primaryButton, out bool a) && a;
+        // Right stick flick = snap turn (once per flick; push it back to the middle to turn again)
+        float turnX = VRInput.Stick(XRNode.RightHand).x;
+        if (snapTurnDegrees > 0f && turnStickWasCentered && Mathf.Abs(turnX) > 0.75f)
+        {
+            turnQueued += Mathf.Sign(turnX) * snapTurnDegrees;
+            turnStickWasCentered = false;
+        }
+        if (Mathf.Abs(turnX) < 0.3f) turnStickWasCentered = true;
+
+        bool jumpHeld = VRInput.Primary(XRNode.RightHand);
         if (jumpHeld && !jumpHeldLastFrame)
             jumpQueued = true;
         jumpHeldLastFrame = jumpHeld;
@@ -92,6 +104,7 @@ public class gorillalocomotion : MonoBehaviour
     {
         float dt = Time.fixedDeltaTime;
         if (regrabTimer > 0f) regrabTimer -= dt;
+        if (turnQueued != 0f) { SnapTurn(turnQueued); turnQueued = 0f; }
 
         // Climb timer only refills when you touch the ground
         if (isGrounded) climbTimeLeft = maxClimbTime;
@@ -161,6 +174,21 @@ public class gorillalocomotion : MonoBehaviour
             if (rb != null) rb.useGravity = true;
         }
         jumpQueued = false;
+        turnQueued = 0f;
+    }
+
+    // Turn the whole player around the HEAD (not the feet), so the world doesn't swing past you.
+    void SnapTurn(float degrees)
+    {
+        Quaternion q = Quaternion.Euler(0f, degrees, 0f);
+        Vector3 pivot = head != null ? head.position : rb.position;
+        Vector3 newPos = pivot + q * (rb.position - pivot);
+        newPos.y = rb.position.y;
+        Quaternion newRot = q * rb.rotation;
+        rb.position = newPos;
+        rb.rotation = newRot;
+        transform.SetPositionAndRotation(newPos, newRot);
+        rb.linearVelocity = q * rb.linearVelocity;   // keep moving the way you were going, turned too
     }
 
     void StartCling(Vector3 normal)

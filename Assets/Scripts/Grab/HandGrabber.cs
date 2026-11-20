@@ -75,9 +75,8 @@ public class HandGrabber : MonoBehaviour
     {
         TrackVelocity();
 
-        InputDevice device = InputDevices.GetDeviceAtXRNode(Node);
-        bool grip = device.TryGetFeatureValue(CommonUsages.gripButton, out bool g) && g;
-        bool trigger = device.TryGetFeatureValue(CommonUsages.triggerButton, out bool t) && t;
+        bool grip = VRInput.Grip(Node);
+        bool trigger = VRInput.Trigger(Node);
 
         FindHover();
 
@@ -196,7 +195,7 @@ public class HandGrabber : MonoBehaviour
 
     public void Buzz(float strength = 0.4f, float seconds = 0.05f)
     {
-        InputDevices.GetDeviceAtXRNode(Node).SendHapticImpulse(0u, strength, seconds);
+        VRInput.Buzz(Node, strength, seconds);
     }
 }
 
@@ -224,12 +223,19 @@ static class GorillaRigBootstrap
         if (player.GetComponent<PlayerHealthHud>() == null) player.AddComponent<PlayerHealthHud>();
         if (player.GetComponent<PlayerAvatar>() == null) player.AddComponent<PlayerAvatar>();   // body + cosmetics
         if (player.GetComponent<PlayerPets>() == null) player.AddComponent<PlayerPets>();       // your pet
+        if (Application.platform == RuntimePlatform.WebGLPlayer)
+        {
+            var cam = player.GetComponentInChildren<Camera>();
+            if (cam != null && cam.GetComponent<WebXRHeadFollower>() == null) cam.gameObject.AddComponent<WebXRHeadFollower>();
+        }
 
         foreach (var t in player.GetComponentsInChildren<Transform>(true))
         {
             if (t.name != "Left Hand" && t.name != "Right Hand") continue;
             if (t.GetComponent<HandGrabber>() == null) t.gameObject.AddComponent<HandGrabber>();
             if (t.GetComponent<HandPoker>() == null) t.gameObject.AddComponent<HandPoker>();   // press buttons, pet pets
+            if (Application.platform == RuntimePlatform.WebGLPlayer && t.GetComponent<WebXRHandFollower>() == null)
+                t.gameObject.AddComponent<WebXRHandFollower>();                                  // Quest browser version
         }
     }
 }

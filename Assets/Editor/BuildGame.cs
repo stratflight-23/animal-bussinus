@@ -12,6 +12,7 @@ using UnityEngine;
 //       -executeMethod BuildGame.BuildQuest -logFile -
 //
 //   ... -executeMethod BuildGame.BuildLinux -logFile -
+//   ... -executeMethod BuildGame.BuildWebXR -logFile -      (Quest web browser version)
 //
 // Builds use every scene that is ticked in File > Build Profiles (Build Settings) and go into the
 // Builds/ folder, which git ignores.
@@ -19,6 +20,7 @@ public static class BuildGame
 {
     const string QuestPath = "Builds/Quest/GorillaCompany.apk";
     const string LinuxPath = "Builds/Linux/GorillaCompany.x86_64";
+    const string WebXRPath = "Builds/WebXR";
 
     [MenuItem("Gorilla Company/Build/Quest (Android APK)")]
     public static void BuildQuest()
@@ -42,6 +44,37 @@ public static class BuildGame
     public static void BuildLinux()
     {
         Build(BuildTarget.StandaloneLinux64, LinuxPath);
+    }
+
+    // The Quest web-browser version (WebXR). Makes a folder with index.html you can put on a website;
+    // open it in the Quest Browser and press the VR button. Uses the WebXR Export add-on.
+    [MenuItem("Gorilla Company/Build/Quest Browser (WebXR)")]
+    public static void BuildWebXR()
+    {
+        if (!BuildPipeline.IsBuildTargetSupported(BuildTargetGroup.WebGL, BuildTarget.WebGL))
+        {
+            Fail("Web Build Support is not installed for this Unity version (Unity Hub > Installs > Add modules).");
+            return;
+        }
+        Debug.Log("[BuildGame] " + VRSetup.ConfigureWebXR().Trim());
+
+        PlayerSettings.WebGL.template = "PROJECT:WebXRFullView2020";   // the page with the VR button
+        PlayerSettings.WebGL.compressionFormat = WebGLCompressionFormat.Gzip;
+        PlayerSettings.WebGL.decompressionFallback = true;             // works on any web host
+        PlayerSettings.WebGL.dataCaching = true;
+
+        // WebXR needs "Gamma" colors. Only for this build - the Quest app / PC stay on Linear.
+        var oldColorSpace = PlayerSettings.colorSpace;
+        PlayerSettings.colorSpace = ColorSpace.Gamma;
+        try
+        {
+            Build(BuildTarget.WebGL, WebXRPath);
+        }
+        finally
+        {
+            PlayerSettings.colorSpace = oldColorSpace;
+            AssetDatabase.SaveAssets();
+        }
     }
 
     static void Build(BuildTarget target, string outputPath)

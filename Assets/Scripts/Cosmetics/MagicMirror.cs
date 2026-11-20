@@ -8,6 +8,12 @@ public class MagicMirror : MonoBehaviour
     [Tooltip("The mirror camera turns on when your head is closer than this (meters).")]
     public float activeRange = 5f;
 
+    void Awake()
+    {
+        // A camera that draws into a picture must not try to draw for both VR eyes.
+        if (mirrorCamera != null) mirrorCamera.stereoTargetEye = StereoTargetEyeMask.None;
+    }
+
     void Update()
     {
         if (mirrorCamera == null) return;

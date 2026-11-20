@@ -173,6 +173,23 @@ glow, spin; pets: parts named "Tail" wag around `tailPivot`, "Wing" flap). `Poke
   has no GorillaModel, PlayerAvatar falls back to its old simple primitive body.
 - Wrist health bar default offset moved up to (0, 0.15, -0.14) so it sits above the thick forearm.
 
+## Quest web-browser version (WebXR) + input (added Nov 20, 2026)
+- No-PC / no-Developer-Mode way to test: the game runs as a web page in the Quest Browser (press the VR button).
+  Uses **WebXR Export 0.25.0** (`com.de-panther.webxr`, from the OpenUPM scoped registry in Packages/manifest.json).
+- **Gorilla Company > Build > Quest Browser (WebXR)** / `-executeMethod BuildGame.BuildWebXR` (run with `-buildTarget WebGL`)
+  -> `Builds/WebXR/` (index.html + Build/, ~17 MB, git-ignored, build takes ~35 min on the laptop). It turns on the
+  WebXR loader for the WebGL tab (`VRSetup.ConfigureWebXR`, settings in `Assets/XR/Settings/WebXRSettings.asset`), uses the
+  page template `Assets/WebGLTemplates/WebXRFullView2020` (copied from the add-on), Gzip + decompression fallback, and switches
+  color space to **Gamma only during the build** (WebXR needs it), then back to Linear.
+  After a batch WebGL build, reopen/compile with `-buildTarget Linux64` so the editor isn't left on the Web target.
+- **All controller input goes through `VRInput`** (`Assets/Scripts/Util/VRInput.cs`): Grip/Trigger/Primary/Secondary/
+  StickClick/Stick/Buzz. Normal builds = UnityEngine.XR InputDevices; web = `WebXRInput` (`Assets/Scripts/WebXRBridge/`,
+  its own asmdef because the add-on's assembly isn't auto-referenced). Don't call InputDevices directly in new code.
+  On the web, `GorillaRigBootstrap` adds `WebXRHandFollower` (hands from WebXR grip pose) and `WebXRHeadFollower`
+  (backup head tracking) automatically.
+- Snap turn: right stick flick = 45 deg around the head (`gorillalocomotion.snapTurnDegrees`, 0 = off).
+- Mirror camera forced to `stereoTargetEye = None` (MagicMirror.Awake).
+
 ## VR setup status (Nov 20, 2026)
 - Packages installed: `com.unity.xr.management` 4.6.1, `com.unity.xr.openxr` 1.19.0 (in Packages/manifest.json).
 - `Assets/Editor/VRSetup.cs` = **Gorilla Company > Extras > Set Up OpenXR (PC + Quest)** (command line:

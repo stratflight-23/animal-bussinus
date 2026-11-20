@@ -187,16 +187,13 @@ public class GoopCopter : MonoBehaviour
 
         if (pilotDeath != null && pilotDeath.IsDead) { Exit(); return; }
 
-        var left = InputDevices.GetDeviceAtXRNode(XRNode.LeftHand);
-        var right = InputDevices.GetDeviceAtXRNode(XRNode.RightHand);
-        if (left.TryGetFeatureValue(CommonUsages.primary2DAxis, out Vector2 l) && l.magnitude > stickDeadzone) moveInput = l;
-        if (right.TryGetFeatureValue(CommonUsages.primary2DAxis, out Vector2 r))
+        if (VRInput.Stick(XRNode.LeftHand, out Vector2 l) && l.magnitude > stickDeadzone) moveInput = l;
+        if (VRInput.Stick(XRNode.RightHand, out Vector2 r))
         {
             if (Mathf.Abs(r.x) > stickDeadzone) turnInput = r.x;
             if (Mathf.Abs(r.y) > stickDeadzone) climbInput = r.y;
         }
-        bool exit = (right.TryGetFeatureValue(CommonUsages.secondaryButton, out bool b) && b)
-                 || (left.TryGetFeatureValue(CommonUsages.secondaryButton, out bool y) && y);
+        bool exit = VRInput.Secondary(XRNode.RightHand) || VRInput.Secondary(XRNode.LeftHand);
 
         if (kb != null)
         {

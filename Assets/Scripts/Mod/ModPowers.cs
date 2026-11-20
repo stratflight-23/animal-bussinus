@@ -109,10 +109,8 @@ public class ModPowers : MonoBehaviour
         // Left stick = fly where you look, right stick up/down = go up/down
         Vector2 move = Vector2.zero;
         float vertical = 0f;
-        var left = InputDevices.GetDeviceAtXRNode(XRNode.LeftHand);
-        var right = InputDevices.GetDeviceAtXRNode(XRNode.RightHand);
-        if (left.TryGetFeatureValue(UnityEngine.XR.CommonUsages.primary2DAxis, out Vector2 l)) move = l;
-        if (right.TryGetFeatureValue(UnityEngine.XR.CommonUsages.primary2DAxis, out Vector2 r)) vertical = r.y;
+        if (VRInput.Stick(XRNode.LeftHand, out Vector2 l)) move = l;
+        if (VRInput.Stick(XRNode.RightHand, out Vector2 r)) vertical = r.y;
 
         // Keyboard for testing without a headset: WASD + Space (up) / Left Ctrl (down)
         var kb = UnityEngine.InputSystem.Keyboard.current;

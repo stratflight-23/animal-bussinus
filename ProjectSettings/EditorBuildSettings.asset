@@ -12,6 +12,7 @@ EditorBuildSettings:
     path: Assets/Scenes/GetStarted_Scene.unity
     guid: 6888813f2bd9e4521b9b1343abf0c60f
   m_configObjects:
+    WebXR.Settings: {fileID: 11400000, guid: 39ccb64dd1e363a0c88ea9a3e1460cfb, type: 2}
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
     com.unity.xr.management.loader_settings: {fileID: 11400000, guid: c3b701c6972de6bf2a9cb5ea26f7b340, type: 2}
     com.unity.xr.openxr.settings4: {fileID: 11400000, guid: 7c1b9a94d51eb3d56b15359b10674e9e, type: 2}
